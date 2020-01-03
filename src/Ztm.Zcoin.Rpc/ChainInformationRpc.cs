@@ -21,9 +21,16 @@ namespace Ztm.Zcoin.Rpc
 
             var block = await Client.GetBlockAsync(hash);
 
-            foreach (var tx in block.Transactions)
+            try
             {
-                await PopulateExodusInformationAsync(tx, cancellationToken);
+                foreach (var tx in block.Transactions)
+                {
+                    await PopulateExodusInformationAsync(tx, cancellationToken);
+                }
+            }
+            catch (UnevaluatedExodusTransactionException ex)
+            {
+                throw new InvalidBlockException("The block contains unevaluated exodus transactions.", hash, ex);
             }
 
             return block;

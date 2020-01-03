@@ -118,7 +118,7 @@ namespace Ztm.Zcoin.Rpc
                 // valid or not.
                 if (info.Valid == null)
                 {
-                    throw new ArgumentException("The transaction is not confirmed.", nameof(tx));
+                    throw new UnevaluatedExodusTransactionException("The transaction is not confirmed.", tx);
                 }
 
                 if (!info.Valid.Value)

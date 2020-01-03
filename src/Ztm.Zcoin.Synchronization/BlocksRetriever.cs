@@ -177,6 +177,10 @@ namespace Ztm.Zcoin.Synchronization
                         await WaitNewBlockAsync(cancellationToken);
                         continue;
                     }
+                    catch (InvalidBlockException)
+                    {
+                        continue;
+                    }
                 }
 
                 // Execute handler.
